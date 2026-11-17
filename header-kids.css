@@ -1,0 +1,139 @@
+/* LittleVerse's playful illustrated navigation bar. */
+.site-header {
+  height: 104px;
+  padding-inline: max(5vw, 24px);
+  overflow: visible;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 16% 25%, rgba(255,255,255,.18) 0 3px, transparent 4px),
+    radial-gradient(circle at 77% 70%, rgba(255,255,255,.13) 0 2px, transparent 3px),
+    linear-gradient(105deg, #3478C8 0%, #5276c7 52%, #8874CE 100%);
+  border-bottom: 0;
+  box-shadow: 0 6px 0 rgba(36,54,83,.08);
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  height: 25px;
+  background: radial-gradient(circle at 13px -1px, transparent 13px, var(--cream) 14px) 0 0 / 27px 25px repeat-x;
+  filter: drop-shadow(0 4px 1px rgba(36,54,83,.04));
+}
+
+.site-header .logo-image {
+  position: relative;
+  z-index: 1;
+  width: 178px;
+  height: 84px;
+  padding: 4px 9px;
+  background: #fff;
+  border: 3px solid var(--yellow);
+  border-radius: 24px 28px 24px 30px;
+  box-shadow: 0 5px 0 rgba(36,54,83,.2);
+  transform: rotate(-2deg);
+  transition: transform .25s ease;
+}
+
+.site-header .logo-image:hover { transform: rotate(1deg) translateY(-2px); }
+.site-header .logo-image img { mix-blend-mode: multiply; }
+
+.site-header nav {
+  position: relative;
+  z-index: 1;
+  padding: 10px 13px 10px 23px;
+  gap: 24px;
+  background: rgba(255,255,255,.96);
+  border: 3px solid rgba(255,255,255,.68);
+  border-radius: 999px;
+  box-shadow: 0 6px 0 rgba(36,54,83,.17);
+}
+
+.site-header nav::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 3px solid #fff;
+}
+
+.site-header nav > a {
+  position: relative;
+  color: var(--navy);
+  font-family: 'Baloo 2', cursive;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.site-header nav > a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 0;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--yellow);
+  transform: translateX(-50%) rotate(-2deg);
+  transition: width .22s ease;
+}
+
+.site-header nav > a:not(.nav-cta):hover::after { width: 80%; }
+
+.site-header .nav-cta {
+  padding: 10px 16px !important;
+  color: var(--navy) !important;
+  background: var(--yellow);
+  border: 2px solid #efb821;
+  border-radius: 999px;
+  box-shadow: 0 3px 0 #d99c13;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.site-header .nav-cta:hover { transform: translateY(2px); box-shadow: 0 1px 0 #d99c13; }
+.site-header .nav-cta b { display:inline-block; color: var(--purple); transform: scale(1.3); }
+
+.header-doodle {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  font-family: 'Baloo 2', cursive;
+  animation: header-bob 4s ease-in-out infinite;
+}
+
+.doodle-sun { left: 1.5%; top: 10px; color: var(--yellow); font-size: 38px; transform: rotate(-13deg); }
+.doodle-star { right: 2.1%; top: 8px; color: #fff; font-size: 31px; animation-delay: -1.2s; }
+.doodle-heart { right: 4.4%; bottom: 6px; color: var(--pink); font-size: 19px; animation-delay: -2.3s; }
+
+@keyframes header-bob { 0%,100% { margin-top:0; } 50% { margin-top:-6px; } }
+
+@media (max-width: 1050px) and (min-width: 851px) {
+  .site-header nav { gap: 15px; padding-left: 18px; }
+  .site-header nav > a { font-size: 14px; }
+  .site-header .logo-image { width: 158px; }
+}
+
+@media (max-width: 850px) {
+  .site-header { height: 82px; padding-inline: 17px; }
+  .site-header::before { bottom: -9px; height: 19px; background-size: 22px 19px; }
+  .site-header .logo-image { width: 146px; height: 70px; padding: 3px 6px; border-radius:20px 24px 20px 25px; }
+  .site-header .menu-toggle { position:relative; z-index:2; color:var(--navy); background:#fff; border:3px solid var(--yellow); box-shadow:0 4px 0 rgba(36,54,83,.2); }
+  .site-header nav.open { top: 82px; left: 10px; right: 10px; padding: 26px 24px 28px; border: 3px solid var(--yellow); border-radius: 0 0 23px 23px; background:#fff; box-shadow:0 10px 0 rgba(36,54,83,.14); }
+  .site-header nav.open::before { left: 23px; }
+  .site-header nav.open .nav-cta { padding: 13px 16px !important; background:var(--yellow); }
+  .doodle-sun { left: auto; right: 77px; top: -3px; font-size:22px; }
+  .doodle-star { display:none; }
+  .doodle-heart { right: 12px; bottom: 4px; font-size:12px; }
+}
+
+@media (max-width: 370px) {
+  .site-header .logo-image { width:125px; height:66px; }
+  .doodle-sun { display:none; }
+}

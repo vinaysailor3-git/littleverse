@@ -13,10 +13,35 @@
   <link rel="stylesheet" href="motion.css" />
   <link rel="stylesheet" href="motion-plus.css" />
   <link rel="stylesheet" href="mobile.css" />
+  <link rel="stylesheet" href="header-kids.css" />
+  <link rel="stylesheet" href="admission-popup.css" />
+  <link rel="stylesheet" href="preloader.css" />
 </head>
 <body>
+  <div class="site-preloader" id="site-preloader" role="status" aria-live="polite" aria-label="Loading LittleVerse Preschool">
+    <div class="preloader-sky" aria-hidden="true"><span>✦</span><span>●</span><span>✿</span><span>✦</span></div>
+    <div class="preloader-logo-wrap"><span class="preloader-orbit orbit-one" aria-hidden="true">✦</span><span class="preloader-orbit orbit-two" aria-hidden="true">●</span><img src="assets/littleverse-logo.png" alt="LittleVerse Preschool" class="preloader-logo" /></div>
+    <p><span class="preloader-dot"></span> Preparing little discoveries</p>
+  </div>
+  <div class="admission-modal" id="admission-modal" role="dialog" aria-modal="true" aria-labelledby="admission-title" aria-hidden="true">
+    <div class="admission-modal__backdrop" data-close-modal></div>
+    <section class="admission-modal__card">
+      <button class="admission-modal__close" type="button" aria-label="Close admission announcement" data-close-modal>×</button>
+      <div class="admission-modal__art" aria-hidden="true"><span class="modal-sun">☀</span><span class="modal-star">✦</span><span class="modal-rainbow">⌒</span><span class="modal-kite">◆</span></div>
+      <div class="admission-modal__content">
+        <p class="admission-modal__label">2026–27 admissions</p>
+        <h2 id="admission-title">Admissions are<br><em>now open!</em></h2>
+        <p>Give your little one a joyful start filled with play, friendship and discovery.</p>
+        <a class="button admission-modal__cta" href="#contact" data-admission-cta>Enquire now <span>→</span></a>
+        <button class="admission-modal__later" type="button" data-close-modal>Maybe later</button>
+      </div>
+    </section>
+  </div>
   <div class="topbar"><span>🌟 A little world of endless possibilities</span><a href="mailto:hello@littleverse.example">hello@littleverse.example</a></div>
   <header class="site-header">
+    <span class="header-doodle doodle-sun" aria-hidden="true">☀</span>
+    <span class="header-doodle doodle-star" aria-hidden="true">✦</span>
+    <span class="header-doodle doodle-heart" aria-hidden="true">♥</span>
     <a class="logo logo-image" href="#home" aria-label="LittleVerse home"><img src="assets/littleverse-logo.png" alt="LittleVerse Preschool" /></a>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav><a href="#about">About us</a><a href="#programs">Programs</a><a href="#facilities">Facilities</a><a href="#admissions">Admissions</a><a class="nav-cta" href="#contact">Book a visit <b>→</b></a></nav>
@@ -47,5 +72,7 @@
   <script src="script.js"></script>
   <script src="motion.js"></script>
   <script src="motion-plus.js"></script>
+  <script src="preloader.js"></script>
+  <script src="admission-popup.js"></script>
 </body>
 </html>
