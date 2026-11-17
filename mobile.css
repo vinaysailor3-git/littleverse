@@ -1,0 +1,116 @@
+/* Purposeful phone and tablet layout overrides. Loaded last by design. */
+@media (max-width: 850px) {
+  .site-header {
+    height: 76px;
+    padding-inline: 20px;
+  }
+
+  .topbar { padding: 8px 20px; }
+  .topbar a { display: none; }
+  .logo-image { width: 148px; height: 65px; }
+
+  .menu-toggle {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    background: var(--yellow);
+    border-radius: 13px;
+    line-height: 1;
+  }
+
+  .site-header nav.open {
+    top: 76px;
+    padding: 24px 20px 29px;
+    gap: 22px;
+    border-bottom: 3px solid var(--yellow);
+  }
+
+  .site-header nav.open a { font-size: 16px; }
+  .site-header nav.open .nav-cta { width: 100%; text-align: center; }
+
+  .hero {
+    padding-top: 45px;
+    padding-bottom: 38px;
+    gap: 0;
+  }
+
+  .hero-copy { max-width: 580px; }
+  .hero h1 { max-width: 520px; }
+  .lead { font-size: 16px; }
+  .hero-actions { margin-top: 24px; flex-wrap: wrap; }
+  .hero .button { min-height: 47px; }
+  .trust { margin-top: 28px; }
+  .hero-visual { width: min(100%, 510px); height: 365px; margin: 18px auto 0; }
+  .hero-photo { width: 80%; height: 85%; right: 6%; }
+  .paint-tag { width: 106px; height: 106px; font-size: 16px; line-height: 17px; }
+  .sun { font-size: 59px; }
+
+  .intro { padding: 70px 24px; }
+  .programs { padding-top: 75px; padding-bottom: 84px; }
+  .program-grid { gap: 16px; }
+  .program-card { min-height: 270px; }
+  .story, .why, .contact { padding: 75px 24px; }
+  .facilities { padding-top: 75px; }
+  .admissions { padding: 70px 24px; }
+  .contact form { max-width: 580px; width: 100%; }
+}
+
+@media (max-width: 540px) {
+  body { background-size: 17px 17px; }
+  .topbar { justify-content:center; text-align:center; min-height:31px; font-size:10px; }
+  .site-header { padding-inline: 15px; }
+  .logo-image { width: 132px; height: 58px; }
+  .menu-toggle { width: 42px; height: 42px; font-size:23px; }
+  .section, .hero { padding-left: 20px; padding-right: 20px; }
+
+  .hero { padding-top: 36px; padding-bottom: 28px; }
+  .hero h1 { font-size: clamp(43px, 13vw, 56px); line-height: .98; }
+  .eyebrow { font-size: 10px; margin-bottom: 10px; }
+  .lead { font-size: 15px; line-height: 1.58; }
+  .hero-actions { display:grid; grid-template-columns:1fr; gap:17px; align-items:start; }
+  .hero-actions .button { justify-content:center; width:100%; }
+  .text-link { padding-left: 5px; }
+  .hero-visual { height: 305px; margin-top: 10px; }
+  .hero-photo { width: 81%; height: 82%; border-width: 5px; box-shadow: 11px 12px 0 var(--pink); }
+  .shape-blue { width: 165px; height: 165px; }
+  .shape-yellow { width: 58px; height: 58px; }
+  .paint-tag { width: 88px; height:88px; font-size:13px; line-height:14px; }
+  .hero::before { width:200px; height:200px; left:-105px; }
+  .hero::after { width:75px; height:75px; right:0; }
+
+  .intro { grid-template-columns: 55px 1fr; padding:62px 20px; gap:13px; }
+  .intro .mini-illustration { font-size:43px; }
+  .intro h2, .section h2 { font-size:clamp(31px, 9.5vw, 43px); }
+  .intro>p { font-size:15px; margin:7px 0; }
+  .outline { width:100%; justify-content:center; }
+
+  .section-heading { margin-bottom:27px; }
+  .section-heading>p { font-size:15px; }
+  .programs { padding:65px 20px 74px; }
+  .program-grid { grid-template-columns:1fr; }
+  .program-card { min-height: 238px; padding:23px; }
+  .program-card:nth-child(2n) { transform:none; }
+  .program-card h3 { font-size:28px; }
+  .program-card .program-icon { margin:13px 0 3px; }
+
+  .story, .why, .contact { padding:65px 20px; gap:32px; }
+  .story-photo, .why-image { height:295px; width:calc(100% - 12px); margin-left:6px; }
+  .activity-list { grid-template-columns:1fr; margin:20px 0 26px; }
+  .story .button { width:100%; justify-content:center; }
+  .facility-strip article { padding:27px 20px; min-height:132px; }
+  .facility-strip h3 { margin:11px 0 4px; }
+  .why-image { box-shadow:11px 12px 0 #cfe4f9; }
+
+  .admissions { padding:65px 20px; }
+  .steps { display:grid; gap:12px; }
+  .contact form { padding:23px 18px; }
+  input, textarea { font-size:16px; } /* prevents iOS auto-zoom */
+  form .button { width:100%; justify-content:center; min-height:49px; }
+  footer { padding:35px 20px; }
+  footer .logo-image { width:178px; height:92px; }
+
+  /* Prevent over-busy movement on compact screens without removing the playful feel. */
+  .magic-particle:nth-child(n+8) { display:none; }
+  .hero .loop, .c2 { display:none; }
+}

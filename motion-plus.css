@@ -1,0 +1,125 @@
+/* A more expressive, child-like moving backdrop. */
+body {
+  background-color: var(--cream);
+  background-image: radial-gradient(rgba(52,120,200,.13) 1.1px, transparent 1.1px);
+  background-size: 22px 22px;
+}
+
+.magic-background {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.magic-background::before,
+.magic-background::after {
+  content: "";
+  position: absolute;
+  width: min(46vw, 540px);
+  aspect-ratio: 1;
+  border-radius: 44% 56% 61% 39% / 43% 45% 55% 57%;
+  filter: blur(1px);
+  opacity: .24;
+}
+
+.magic-background::before {
+  background: var(--purple);
+  left: -18vw;
+  bottom: -20vw;
+  animation: blob-orbit 21s ease-in-out infinite alternate;
+}
+
+.magic-background::after {
+  background: var(--yellow);
+  right: -17vw;
+  bottom: 12vh;
+  animation: blob-orbit 27s -8s ease-in-out infinite alternate-reverse;
+}
+
+.magic-particle {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+  color: var(--particle-color);
+  font-size: calc(var(--size) * .75);
+  opacity: .55;
+  animation: particle-dance var(--speed) var(--delay) ease-in-out infinite alternate;
+}
+
+.hero { isolation: isolate; }
+.hero::selection { background: var(--yellow); }
+.hero-copy { animation: hero-copy-in .9s .12s both cubic-bezier(.18,.8,.25,1); }
+.hero-visual { animation: hero-art-in 1s .25s both cubic-bezier(.18,.8,.25,1); }
+
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: 7% 4% 5% 9%;
+  border: 2px solid rgba(52,120,200,.22);
+  border-radius: 50% 45% 48% 52%;
+  animation: orbit-outline 16s linear infinite;
+}
+
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.24), transparent 37%, rgba(136,116,206,.13));
+  pointer-events: none;
+}
+
+.program-card:nth-child(2n) { transform: translateY(22px); }
+.program-card:nth-child(2n):hover { transform: translateY(12px) rotate(1deg); }
+.program-card .program-icon { animation: icon-bop 3.8s ease-in-out infinite; }
+.program-card:nth-child(2) .program-icon { animation-delay: -.8s; }
+.program-card:nth-child(3) .program-icon { animation-delay: -1.9s; }
+.program-card:nth-child(4) .program-icon { animation-delay: -2.7s; }
+
+.section-heading h2 em,
+.intro h2 em,
+.story h2 em,
+.why h2 em,
+.admissions h2 em,
+.contact h2 em {
+  display: inline-block;
+  animation: word-wobble 5s ease-in-out infinite;
+}
+
+.story-photo { animation: photo-float 5s ease-in-out infinite; }
+.why-image { animation: photo-float 6s -2s ease-in-out infinite; }
+.admission-art { animation: admission-float 5.5s ease-in-out infinite; }
+
+/* Enhanced reveals: panels rise up as though they are placed on the page. */
+.motion-ready .reveal {
+  transform: translateY(54px) rotate(1.5deg) scale(.94);
+  filter: blur(5px);
+  transition: opacity .78s cubic-bezier(.18,.8,.25,1), transform .78s cubic-bezier(.18,.8,.25,1), filter .65s ease;
+}
+.motion-ready .reveal.from-left { transform: translateX(-70px) rotate(-2deg) scale(.94); }
+.motion-ready .reveal.from-right { transform: translateX(70px) rotate(2deg) scale(.94); }
+.motion-ready .reveal.is-visible { transform: none; filter: blur(0); }
+
+@keyframes blob-orbit {
+  0% { transform: translate(0,0) rotate(0deg) scale(1); border-radius:44% 56% 61% 39% / 43% 45% 55% 57%; }
+  50% { transform: translate(12vw,-8vh) rotate(100deg) scale(1.17); border-radius:62% 38% 47% 53% / 58% 38% 62% 42%; }
+  100% { transform: translate(23vw,5vh) rotate(220deg) scale(.93); border-radius:38% 62% 55% 45% / 42% 60% 40% 58%; }
+}
+@keyframes particle-dance {
+  0% { transform: translate3d(0,0,0) rotate(0deg) scale(.7); opacity:.2; }
+  55% { opacity:.7; }
+  100% { transform: translate3d(var(--move-x),var(--move-y),0) rotate(170deg) scale(1.13); opacity:.32; }
+}
+@keyframes hero-copy-in { from { opacity:0; transform:translateX(-45px) } to { opacity:1; transform:none } }
+@keyframes hero-art-in { from { opacity:0; transform:translate(45px,20px) scale(.9) } to { opacity:1; transform:none } }
+@keyframes orbit-outline { to { transform: rotate(360deg) scale(.96); } }
+@keyframes icon-bop { 0%,100% { transform:rotate(-5deg) translateY(0) } 50% { transform:rotate(8deg) translateY(-8px) } }
+@keyframes word-wobble { 0%,100% { transform:rotate(0) } 50% { transform:rotate(-1.8deg) translateY(-2px) } }
+@keyframes photo-float { 0%,100% { transform:translateY(0) rotate(0) } 50% { transform:translateY(-12px) rotate(-.8deg) } }
+@keyframes admission-float { 0%,100% { transform:translateY(0) rotate(0) } 50% { transform:translateY(-14px) rotate(3deg) } }
+
+@media (max-width:850px) { .program-card:nth-child(2n) { transform:none; } }
+@media (prefers-reduced-motion: reduce) { .magic-background { display:none; } }
