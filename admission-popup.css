@@ -1,17 +1,36 @@
 .admission-modal {
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: grid;
   place-items: center;
   padding: 20px;
   visibility: hidden;
   opacity: 0;
+  pointer-events: none;
   transition: opacity .3s ease, visibility .3s ease;
 }
 
-.admission-modal.is-open { visibility: visible; opacity: 1; }
-.admission-modal__backdrop { position:absolute; inset:0; background:rgba(25,41,71,.62); backdrop-filter:blur(5px); }
+.admission-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.admission-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(25,41,71,.62);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
 
 .admission-modal__card {
   position:relative;
@@ -60,29 +79,30 @@
   .admission-modal__content { padding: 32px 36px 28px; }
 }
 
-/* ── Small phone (≤590px): switch to stacked layout, slide up from bottom ── */
+/* ── Small phone (≤590px): vertically & horizontally centered, stacked layout ── */
 @media (max-width: 590px) {
-  /* Centre the modal vertically but allow it to be near the bottom so the
-     keyboard doesn't cover the CTA button when focused */
   .admission-modal {
-    padding: 12px 12px 0;
-    align-items: end;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Card fills width, stacks art on top of content, slides up from bottom */
+  /* Card fills mobile width, centered on screen */
   .admission-modal__card {
     grid-template-columns: 1fr;
     width: 100%;
+    max-width: 390px;
+    margin: auto;
     min-height: 0;
-    /* Allow the card to scroll internally if the viewport is very short */
-    max-height: calc(100dvh - 24px);
-    max-height: calc(100vh - 24px); /* fallback for browsers without dvh */
+    max-height: min(88vh, 88dvh);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     border-width: 4px;
-    border-radius: 24px 24px 20px 20px;
-    /* Entry: slide up only — no rotation that would cause horizontal overflow */
-    transform: translateY(60px) scale(.96);
+    border-radius: 24px;
+    box-shadow: 0 16px 36px rgba(16, 29, 53, 0.35);
+    /* Entry: clean vertical slide without rotation to avoid overflow */
+    transform: translateY(24px) scale(.97);
   }
 
   .admission-modal.is-open .admission-modal__card {
@@ -90,27 +110,27 @@
   }
 
   /* Compact decorative art strip */
-  .admission-modal__art { min-height: 130px; }
+  .admission-modal__art { min-height: 125px; }
   .admission-modal__art::before { width:180px; height:180px; left:-60px; bottom:-70px; }
   .admission-modal__art::after  { width:170px; height:88px; right:-35px; bottom:28px; }
 
   /* Scale down decorative icons inside the art strip */
-  .modal-sun    { left:22px; top:14px; font-size:56px; }
-  .modal-star   { right:28px; top:18px; font-size:26px; }
-  .modal-rainbow{ left:12px; bottom:-18px; font-size:120px; }
-  .modal-kite   { right:38px; bottom:18px; font-size:42px; }
+  .modal-sun    { left:22px; top:14px; font-size:52px; }
+  .modal-star   { right:26px; top:16px; font-size:24px; }
+  .modal-rainbow{ left:12px; bottom:-16px; font-size:115px; }
+  .modal-kite   { right:36px; bottom:16px; font-size:40px; }
 
-  /* Content: tighter but still readable */
-  .admission-modal__content { padding: 22px 20px 20px; }
+  /* Content: clean spacing */
+  .admission-modal__content { padding: 20px 18px 18px; }
 
   .admission-modal h2 {
-    font-size: clamp(28px, 8.5vw, 38px);
-    line-height: 1;
+    font-size: clamp(26px, 8vw, 36px);
+    line-height: 1.05;
   }
 
   .admission-modal__label { font-size: 10px; }
   .admission-modal__content>p:not(.admission-modal__label) {
-    margin: 10px 0 16px;
+    margin: 8px 0 14px;
     font-size: 14px;
     line-height: 1.5;
   }
@@ -118,11 +138,11 @@
   /* Full-width CTA so it's easy to tap */
   .admission-modal__cta { width: 100%; justify-content: center; }
 
-  /* Close button: bigger tap target */
+  /* Close button: positioned cleanly within top-right corner */
   .admission-modal__close {
-    width: 32px;
-    height: 32px;
-    font-size: 22px;
+    width: 34px;
+    height: 34px;
+    font-size: 24px;
     right: 10px;
     top: 10px;
   }
@@ -130,16 +150,17 @@
 
 /* ── Extra-narrow (≤390px): further reduce padding & font ───────────────── */
 @media (max-width: 390px) {
-  .admission-modal { padding: 10px 10px 0; }
-  .admission-modal__art { min-height: 110px; }
-  .modal-sun    { font-size: 46px; left: 16px; top: 10px; }
-  .modal-rainbow{ font-size: 100px; left: 10px; bottom: -16px; }
-  .modal-kite   { font-size: 36px; right: 28px; bottom: 12px; }
-  .modal-star   { font-size: 22px; right: 18px; }
-  .admission-modal__content { padding: 18px 16px 16px; }
-  .admission-modal h2 { font-size: clamp(26px, 8vw, 34px); }
-  .admission-modal__content>p:not(.admission-modal__label) { font-size: 13px; margin: 8px 0 14px; }
-  .admission-modal__later { font-size: 11px; margin-top: 12px; }
+  .admission-modal { padding: 12px; }
+  .admission-modal__card { max-width: 100%; max-height: min(92vh, 92dvh); }
+  .admission-modal__art { min-height: 105px; }
+  .modal-sun    { font-size: 42px; left: 14px; top: 10px; }
+  .modal-rainbow{ font-size: 95px; left: 10px; bottom: -14px; }
+  .modal-kite   { font-size: 32px; right: 24px; bottom: 12px; }
+  .modal-star   { font-size: 20px; right: 16px; }
+  .admission-modal__content { padding: 16px 14px 14px; }
+  .admission-modal h2 { font-size: clamp(24px, 7.5vw, 30px); }
+  .admission-modal__content>p:not(.admission-modal__label) { font-size: 13px; margin: 6px 0 12px; }
+  .admission-modal__later { font-size: 11px; margin-top: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
