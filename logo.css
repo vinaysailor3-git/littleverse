@@ -17,5 +17,5 @@ footer .logo-image {
 
 @media (max-width: 540px) {
   .logo-image { width: 142px; height: 65px; }
-  footer .logo-image { width: 185px; height: 100px; }
+  footer .logo-image { width: min(175px, 54vw); height: auto; }
 }

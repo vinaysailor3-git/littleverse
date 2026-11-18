@@ -1,16 +1,26 @@
-/* Ambient movement: soft and deliberately unobtrusive. */
-body::before,
-body::after {
-  content: "";
+/* Ambient movement: soft and deliberately unobtrusive.                       */
+/* The blobs sit inside .ambient-blobs which is position:fixed + overflow:hidden */
+/* so their negative left/right offsets can NEVER widen the scrollable area.  */
+
+.ambient-blobs {
   position: fixed;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
   z-index: -1;
+}
+
+.ambient-blobs::before,
+.ambient-blobs::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
   border-radius: 50%;
   filter: blur(2px);
   opacity: .42;
 }
 
-body::before {
+.ambient-blobs::before {
   width: 280px;
   height: 280px;
   background: radial-gradient(circle, rgba(245,197,215,.7) 0 20%, transparent 66%);
@@ -19,7 +29,7 @@ body::before {
   animation: ambient-drift 14s ease-in-out infinite alternate;
 }
 
-body::after {
+.ambient-blobs::after {
   width: 330px;
   height: 330px;
   background: radial-gradient(circle, rgba(166,201,106,.5) 0 16%, transparent 68%);
@@ -95,4 +105,13 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .motion-ready .reveal { opacity: 1; transform: none; }
+  .ambient-blobs { display: none; }
+}
+
+/* On narrow viewports the fixed ambient blobs sit inside .ambient-blobs      */
+/* which already has overflow:hidden, so they cannot bleed into scroll width.  */
+/* Still shrink them slightly for perf on small screens.                       */
+@media (max-width: 540px) {
+  .ambient-blobs::before { width: 200px; height: 200px; }
+  .ambient-blobs::after  { width: 240px; height: 240px; }
 }

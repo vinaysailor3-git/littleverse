@@ -93,14 +93,17 @@ body {
 .why-image { animation: photo-float 6s -2s ease-in-out infinite; }
 .admission-art { animation: admission-float 5.5s ease-in-out infinite; }
 
-/* Enhanced reveals: panels rise up as though they are placed on the page. */
+/* Enhanced reveals: panels rise up as though they are placed on the page.    */
+/* NOTE: translateX reveals are intentionally kept modest so they cannot      */
+/* widen the scrollable area while the element is in its off-screen state.    */
+/* The parent html/body overflow-x:hidden in mobile.css acts as a safety net. */
 .motion-ready .reveal {
   transform: translateY(54px) rotate(1.5deg) scale(.94);
   filter: blur(5px);
   transition: opacity .78s cubic-bezier(.18,.8,.25,1), transform .78s cubic-bezier(.18,.8,.25,1), filter .65s ease;
 }
-.motion-ready .reveal.from-left { transform: translateX(-70px) rotate(-2deg) scale(.94); }
-.motion-ready .reveal.from-right { transform: translateX(70px) rotate(2deg) scale(.94); }
+.motion-ready .reveal.from-left { transform: translateX(-50px) rotate(-2deg) scale(.94); }
+.motion-ready .reveal.from-right { transform: translateX(50px) rotate(2deg) scale(.94); }
 .motion-ready .reveal.is-visible { transform: none; filter: blur(0); }
 
 @keyframes blob-orbit {
@@ -113,13 +116,21 @@ body {
   55% { opacity:.7; }
   100% { transform: translate3d(var(--move-x),var(--move-y),0) rotate(170deg) scale(1.13); opacity:.32; }
 }
-@keyframes hero-copy-in { from { opacity:0; transform:translateX(-45px) } to { opacity:1; transform:none } }
-@keyframes hero-art-in { from { opacity:0; transform:translate(45px,20px) scale(.9) } to { opacity:1; transform:none } }
+@keyframes hero-copy-in { from { opacity:0; transform:translateX(-35px) } to { opacity:1; transform:none } }
+@keyframes hero-art-in { from { opacity:0; transform:translate(35px,20px) scale(.9) } to { opacity:1; transform:none } }
+@keyframes hero-art-in-mobile { from { opacity:0; transform:translateY(20px) scale(.9) } to { opacity:1; transform:none } }
+@keyframes hero-copy-in-mobile { from { opacity:0; transform:translateY(30px) } to { opacity:1; transform:none } }
 @keyframes orbit-outline { to { transform: rotate(360deg) scale(.96); } }
 @keyframes icon-bop { 0%,100% { transform:rotate(-5deg) translateY(0) } 50% { transform:rotate(8deg) translateY(-8px) } }
 @keyframes word-wobble { 0%,100% { transform:rotate(0) } 50% { transform:rotate(-1.8deg) translateY(-2px) } }
 @keyframes photo-float { 0%,100% { transform:translateY(0) rotate(0) } 50% { transform:translateY(-12px) rotate(-.8deg) } }
 @keyframes admission-float { 0%,100% { transform:translateY(0) rotate(0) } 50% { transform:translateY(-14px) rotate(3deg) } }
 
-@media (max-width:850px) { .program-card:nth-child(2n) { transform:none; } }
+@media (max-width:850px) {
+  .program-card:nth-child(2n) { transform:none; }
+  /* Replace horizontal entrance animations with vertical-only to prevent     */
+  /* the in-flight transformed element from widening the scrollable area.     */
+  .hero-copy { animation-name: hero-copy-in-mobile; }
+  .hero-visual { animation-name: hero-art-in-mobile; }
+}
 @media (prefers-reduced-motion: reduce) { .magic-background { display:none; } }

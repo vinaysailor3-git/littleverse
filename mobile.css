@@ -1,4 +1,20 @@
 /* Purposeful phone and tablet layout overrides. Loaded last by design. */
+
+/* ─── Global overflow guard ───────────────────────────────────────────────── */
+/* Clip the scrollable document, not the viewport, so fixed/sticky elements   */
+/* still work correctly. This catches any decorative element that escapes its  */
+/* container without hiding individual scroll-driven reveals prematurely.      */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Scroll-reveal transforms use translateX and must not widen the page while   */
+/* the element is in its pre-visible (off-screen) state.                       */
+.motion-ready .reveal:not(.is-visible) {
+  overflow-anchor: none; /* keeps scroll position stable */
+}
+
 @media (max-width: 850px) {
   .site-header {
     height: 76px;
@@ -33,27 +49,50 @@
     padding-top: 45px;
     padding-bottom: 38px;
     gap: 0;
+    /* Clip hero decorative shapes and entrance animations */
+    overflow: hidden;
   }
 
-  .hero-copy { max-width: 580px; }
-  .hero h1 { max-width: 520px; }
+  .hero-copy { max-width: 100%; }
+  .hero h1 { max-width: 100%; }
   .lead { font-size: 16px; }
   .hero-actions { margin-top: 24px; flex-wrap: wrap; }
   .hero .button { min-height: 47px; }
   .trust { margin-top: 28px; }
-  .hero-visual { width: min(100%, 510px); height: 365px; margin: 18px auto 0; }
+  /* hero-visual must not exceed viewport width */
+  .hero-visual { width: min(100%, 510px); height: 365px; margin: 18px auto 0; overflow: hidden; }
   .hero-photo { width: 80%; height: 85%; right: 6%; }
   .paint-tag { width: 106px; height: 106px; font-size: 16px; line-height: 17px; }
   .sun { font-size: 59px; }
 
+  /* ── intro: keep 2 columns but prevent auto column from overflowing ── */
   .intro { padding: 70px 24px; }
+  /* Clamp the auto (button) column so it never exceeds its content */
+  .intro .outline { max-width: 100%; white-space: nowrap; }
+
   .programs { padding-top: 75px; padding-bottom: 84px; }
   .program-grid { gap: 16px; }
   .program-card { min-height: 270px; }
+  /* Reset staggered vertical offset so cards don't overflow their grid row */
+  .program-card:nth-child(2n) { transform: none; }
+
   .story, .why, .contact { padding: 75px 24px; }
+
+  /* story-photo: negative box-shadow extends left; clip the section instead  */
+  .story { overflow: hidden; }
+  .story-photo { box-shadow: -10px 12px 0 var(--yellow); }
+  /* why-image: 18px positive shadow extends right; clip the section          */
+  .why { overflow: hidden; }
+  .why-image { box-shadow: 10px 10px 0 #cfe4f9; }
+  /* hero-photo: 20px shadow extends right; reduce to stay within clipped hero */
+  .hero-photo { box-shadow: 10px 10px 0 var(--pink); }
+
   .facilities { padding-top: 75px; }
   .admissions { padding: 70px 24px; }
   .contact form { max-width: 580px; width: 100%; }
+
+  /* Admission art circle: its rotate(9deg) can clip outside on small screens */
+  .admission-art > div { width: min(245px, 70vw); height: min(245px, 70vw); }
 }
 
 @media (max-width: 540px) {
@@ -64,18 +103,20 @@
   .menu-toggle { width: 42px; height: 42px; font-size:23px; }
   .section, .hero { padding-left: 20px; padding-right: 20px; }
 
-  .hero { padding-top: 36px; padding-bottom: 28px; }
-  .hero h1 { font-size: clamp(43px, 13vw, 56px); line-height: .98; }
+  .hero { padding-top: 36px; padding-bottom: 28px; overflow: hidden; }
+  .hero h1 { font-size: clamp(38px, 11.5vw, 52px); line-height: .98; }
   .eyebrow { font-size: 10px; margin-bottom: 10px; }
-  .lead { font-size: 15px; line-height: 1.58; }
+  .lead { font-size: 15px; line-height: 1.58; max-width: 100%; }
   .hero-actions { display:grid; grid-template-columns:1fr; gap:17px; align-items:start; }
   .hero-actions .button { justify-content:center; width:100%; }
   .text-link { padding-left: 5px; }
-  .hero-visual { height: 305px; margin-top: 10px; }
-  .hero-photo { width: 81%; height: 82%; border-width: 5px; box-shadow: 11px 12px 0 var(--pink); }
-  .shape-blue { width: 165px; height: 165px; }
+  .hero-visual { height: 305px; margin-top: 10px; overflow: hidden; }
+  /* Reduce the box-shadow offset so it stays within the clipped hero */
+  .hero-photo { width: 81%; height: 82%; border-width: 5px; box-shadow: 8px 10px 0 var(--pink); }
+  .shape-blue { width: min(165px, 46vw); height: min(165px, 46vw); }
   .shape-yellow { width: 58px; height: 58px; }
   .paint-tag { width: 88px; height:88px; font-size:13px; line-height:14px; }
+  /* Keep the dashed orbit rings inside the hero; left value already clips */
   .hero::before { width:200px; height:200px; left:-105px; }
   .hero::after { width:75px; height:75px; right:0; }
 
@@ -83,6 +124,7 @@
   .intro .mini-illustration { font-size:43px; }
   .intro h2, .section h2 { font-size:clamp(31px, 9.5vw, 43px); }
   .intro>p { font-size:15px; margin:7px 0; }
+  /* Full-width button prevents the auto column from overflowing */
   .outline { width:100%; justify-content:center; }
 
   .section-heading { margin-bottom:27px; }
@@ -90,17 +132,33 @@
   .programs { padding:65px 20px 74px; }
   .program-grid { grid-template-columns:1fr; }
   .program-card { min-height: 238px; padding:23px; }
+  /* Reset stagger on single-column layout */
   .program-card:nth-child(2n) { transform:none; }
   .program-card h3 { font-size:28px; }
   .program-card .program-icon { margin:13px 0 3px; }
 
   .story, .why, .contact { padding:65px 20px; gap:32px; }
-  .story-photo, .why-image { height:295px; width:calc(100% - 12px); margin-left:6px; }
+  /* story-photo: use full available width minus space for the -20px shadow   */
+  /* by applying overflow:hidden on .story and constraining box-shadow        */
+  .story-photo {
+    height: 295px;
+    width: calc(100% - 6px);
+    margin-left: 6px;
+    /* Bring shadow inward so it stays within the .story overflow:hidden clip */
+    box-shadow: -6px 14px 0 var(--yellow);
+  }
+  .why-image {
+    height: 295px;
+    width: calc(100% - 6px);
+    /* Reduce to stay within .why overflow:hidden clip */
+    box-shadow: 6px 10px 0 #cfe4f9;
+  }
   .activity-list { grid-template-columns:1fr; margin:20px 0 26px; }
   .story .button { width:100%; justify-content:center; }
+  /* round-sticker: pull inside photo bounds to prevent any clip escape */
+  .round-sticker { right: 6px; top: 12px; width: 82px; height: 82px; font-size: 14px; line-height: 15px; }
   .facility-strip article { padding:27px 20px; min-height:132px; }
   .facility-strip h3 { margin:11px 0 4px; }
-  .why-image { box-shadow:11px 12px 0 #cfe4f9; }
 
   .admissions { padding:65px 20px; }
   .steps { display:grid; gap:12px; }
@@ -108,9 +166,31 @@
   input, textarea { font-size:16px; } /* prevents iOS auto-zoom */
   form .button { width:100%; justify-content:center; min-height:49px; }
   footer { padding:35px 20px; }
-  footer .logo-image { width:178px; height:92px; }
+  footer .logo-image { width: min(178px, 55vw); height: auto; }
 
   /* Prevent over-busy movement on compact screens without removing the playful feel. */
   .magic-particle:nth-child(n+8) { display:none; }
   .hero .loop, .c2 { display:none; }
+}
+
+/* ─── Extra-narrow phones (320 – 360px) ───────────────────────────────────── */
+@media (max-width: 390px) {
+  .hero h1 { font-size: clamp(36px, 10.5vw, 46px); }
+  /* Topbar: stack content to prevent overflow on very narrow screens */
+  .topbar { flex-direction: column; gap: 2px; padding: 7px 15px; }
+  /* Nav open panel: tighter horizontal inset */
+  .site-header nav.open { left: 6px; right: 6px; }
+  /* Intro section: collapse to single-column on very narrow screens */
+  .intro { grid-template-columns: 1fr; }
+  .intro .mini-illustration { display: none; }
+  /* Round sticker on story photo: pull it inside to avoid any clipping issues */
+  .round-sticker { right: 4px; top: 10px; width: 86px; height: 86px; font-size: 14px; line-height: 15px; }
+  /* Hero visual: a touch shorter on 320px to avoid content feeling cramped */
+  .hero-visual { height: 265px; }
+  /* Reduce paint-tag so it doesn't escape the hero-visual container */
+  .paint-tag { width: 76px; height: 76px; font-size: 11px; line-height: 13px; }
+  /* Footer logo */
+  footer .logo-image { width: min(155px, 48vw); height: auto; }
+  /* Admission art */
+  .admission-art > div { width: min(200px, 60vw); height: min(200px, 60vw); font-size: clamp(28px, 9vw, 37px); line-height: 1; }
 }

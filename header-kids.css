@@ -121,10 +121,13 @@
 }
 
 @media (max-width: 850px) {
-  .site-header { height: 82px; padding-inline: 17px; }
+  .site-header { height: 82px; padding-inline: 17px; overflow: hidden; }
   .site-header::before { bottom: -9px; height: 19px; background-size: 22px 19px; }
   .site-header .logo-image { width: 146px; height: 70px; padding: 3px 6px; border-radius:20px 24px 20px 25px; }
   .site-header .menu-toggle { position:relative; z-index:2; color:var(--navy); background:#fff; border:3px solid var(--yellow); box-shadow:0 4px 0 rgba(36,54,83,.2); }
+  /* nav.open is position:absolute so it escapes the header's overflow:hidden; */
+  /* the left/right inset keeps it within viewport width.                      */
+  .site-header { overflow: visible; }
   .site-header nav.open { top: 82px; left: 10px; right: 10px; padding: 26px 24px 28px; border: 3px solid var(--yellow); border-radius: 0 0 23px 23px; background:#fff; box-shadow:0 10px 0 rgba(36,54,83,.14); }
   .site-header nav.open::before { left: 23px; }
   .site-header nav.open .nav-cta { padding: 13px 16px !important; background:var(--yellow); }
