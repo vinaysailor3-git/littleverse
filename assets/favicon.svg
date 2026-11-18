@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>LittleVerse Preschool</title>
+  <rect width="64" height="64" rx="15" fill="#0d4d97"/>
+  <path d="M9 42c8-6 16-5 23 2V53c-7-7-15-8-23-2zM55 42c-8-6-16-5-23 2V53c7-7 15-8 23-2z" fill="#f8fbff"/>
+  <path d="M32 44V53" stroke="#f4b51b" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="32" cy="20" r="6" fill="#ee5c82"/>
+  <path d="M22 35c2-8 6-11 10-11s8 3 10 11" fill="#ee5c82"/>
+  <path d="M24 28l-7-5M40 28l7-5" stroke="#ee5c82" stroke-width="3" stroke-linecap="round"/>
+  <path d="M51 12l1.6 4.4L57 18l-4.4 1.6L51 24l-1.6-4.4L45 18l4.4-1.6z" fill="#ffc31a"/>
+</svg>

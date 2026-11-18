@@ -18,10 +18,10 @@
   z-index: -1;
   left: 0;
   right: 0;
-  bottom: -12px;
-  height: 25px;
-  background: radial-gradient(circle at 13px -1px, transparent 13px, var(--cream) 14px) 0 0 / 27px 25px repeat-x;
-  filter: drop-shadow(0 4px 1px rgba(36,54,83,.04));
+  bottom: -20px;
+  height: 21px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath fill='%235276c7' d='M0 0v17c120 19 240 25 360 17C480 26 600 4 720 8c120 4 240 31 360 26 120-5 240-25 360-17V0z'/%3E%3C/svg%3E") center top / 100% 100% no-repeat;
+  filter: drop-shadow(0 4px 2px rgba(36,54,83,.08));
 }
 
 .site-header .logo-image {
@@ -122,7 +122,7 @@
 
 @media (max-width: 850px) {
   .site-header { height: 82px; padding-inline: 17px; overflow: hidden; }
-  .site-header::before { bottom: -9px; height: 19px; background-size: 22px 19px; }
+  .site-header::before { bottom: -15px; height: 16px; }
   .site-header .logo-image { width: 146px; height: 70px; padding: 3px 6px; border-radius:20px 24px 20px 25px; }
   .site-header .menu-toggle { position:relative; z-index:2; color:var(--navy); background:#fff; border:3px solid var(--yellow); box-shadow:0 4px 0 rgba(36,54,83,.2); }
   /* nav.open is position:absolute so it escapes the header's overflow:hidden; */
